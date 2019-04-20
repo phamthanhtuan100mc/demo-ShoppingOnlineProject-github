@@ -1,7 +1,4 @@
-abcdefgh ngon 
-<<<<<<< HEAD
-on ngoanosdfn
-=======
-on ngoan
+abcdefgh ngon ngon ngoan
 dùng cái này dễ voãi cả loznnn
->>>>>>> 8278c4eeb92ec950540175f2b566f2040016d476
+
+oằn bà là toằn
