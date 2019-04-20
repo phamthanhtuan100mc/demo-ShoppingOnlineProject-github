@@ -1,0 +1,86 @@
+﻿@model IEnumerable<OnlineShoppingProject.Models.CartItem>
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+}
+
+@{
+    // Giỏ có hàng hay không
+    // nếu có thì GioHang = true
+    // nếu không thì GioHang = false
+    bool GioHang;
+
+    if (Model == null || Model.Count() == 0)
+    {
+        GioHang = false;
+    }
+    else
+    {
+        GioHang = true;
+    }
+}
+
+<h2>Giỏ hàng</h2>
+
+@if (GioHang == true)
+{
+    <p>
+        @Html.ActionLink("Tiếp tục mua hàng", "Index", "Home") |
+        @Html.ActionLink("Xóa giỏ hàng", "ClearCart")
+    </p>
+}
+else
+{
+    <p>
+        Giỏ hàng trống,
+        <a href="@Url.Action("Index", "Home")" style="color:blue">quay về trang chủ</a>
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.product.name)
+        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.quantity)
+        </th>
+        <th>
+            Thao tác
+        </th>
+    </tr>
+
+    @if (GioHang == true)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "Home", new { id = item.product.id})">@item.product.name</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                    @*<input type="number" value="@(item.quantity)"/>*@
+                </td>
+                <td>
+                    @Html.ActionLink("+", "ValueChanged", new { id = item.product.id, quantity = 1 }) |
+                    @Html.ActionLink("-", "ValueChanged", new { id = item.product.id, quantity = -1 }) |
+                    @Html.ActionLink("Xóa khỏi giỏ", "Delete", new { id = item.product.id })
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@if (GioHang == true)
+{
+    <h5 style="font-weight:bold">Tổng tiền: @string.Format("{0:N0}", ViewBag.TongTien) VNĐ</h5>
+    <hr />
+    <h5 style="font-weight: bold">
+        <a href="@Url.Action("DatHang")">
+            Tiến hành thanh toán
+        </a>
+    </h5>
+}

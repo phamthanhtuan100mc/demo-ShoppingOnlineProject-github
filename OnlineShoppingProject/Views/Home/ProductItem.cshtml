@@ -1,0 +1,68 @@
+﻿@model OnlineShoppingProject.Models.Product
+@using PagedList
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.category.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.name)
+    </td>
+    <td>
+        @string.Format("{0:N0}", Model.price) VNĐ
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.description)
+    </td>
+    <td>
+        <img src="@Model.thumbnail" class="img-responsive" alt="Image Error" width="150" height="150">
+    </td>
+    <td>
+        @{
+            if (Model.valid)
+            {
+                @Html.Raw("Còn kinh doanh")
+            }
+            else
+            {
+                @Html.Raw("Ngừng kinh doanh")
+            }
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Chi tiết", "Details", new { id = Model.id }) |
+
+        @{
+            int? Page_No = ViewBag.pageNumber;
+            int? cateId = ViewBag.cateid;
+        }
+        @Html.ActionLink("Thêm vào giỏ", "ValueChanged", "ShoppingCart", new { id = Model.id, quantity = 1, flag = 1, Page_No, cateId}, null)
+
+    </td>
+</tr>
+
+
+@*<div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig" data-wow-delay="0.2s">
+    <!-- Product Image -->
+    <div class="product-img">
+        <img src="@Model.thumbnail" alt="image error">
+        <div class="product-quicview">
+            <a href="#" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
+        </div>
+    </div>
+    <!-- Product Description -->
+    <div class="product-description">
+        <h4 class="product-price">@string.Format("{0:N0}", Model.price) VNĐ</h4>
+        <p>@Model.name</p>
+        <!-- Add to Cart -->
+        @{
+            int? Page_No = ViewBag.pageNumber;
+            int? cateId = ViewBag.cateid;
+        }
+        @Html.ActionLink("Thêm vào giỏ", "ValueChanged", "ShoppingCart", new { id = Model.id, quantity = 1, flag = 1, Page_No, cateId }, new { @class = "add-to-cart-btn" })
+        <a href="#" class="add-to-cart-btn">ADD TO CART</a>
+    </div>
+</div>*@

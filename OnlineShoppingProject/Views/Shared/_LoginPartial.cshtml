@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNet.Identity
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="@Url.Action("Orders","ShoppingCart")">GIỎ HÀNG (@ViewBag.TongSoLuong)</a>
+    </li>
+</ul>
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">ĐĂNG NHẬP</a>
+            <ul class="dropdown-menu" role="menu">
+                <li>@Html.ActionLink("Tạo tài khoản", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            </ul>
+        </li>
+    </ul>
+}
+
+<style>
+    input[type=text] {
+        width: 300px;
+        color: black;   
+    }
+
+    input[type=submit] {
+        color: black;
+    }
+
+    input[type=submit]:hover{
+        color:black;
+    }
+</style>
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a>
+            <form action="~/" method="get">
+                <input id="SearchString" name="SearchString" type="text" value="" placeholder="Tìm sản phẩm, danh mục mong muốn ...">
+                <input type="submit" value="Tìm kiếm">
+            </form>
+        </a>
+    </li>
+</ul>

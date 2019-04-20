@@ -1,0 +1,38 @@
+﻿@model OnlineShoppingProject.Models.Product
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.category.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.amount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.description)
+    </td>
+    <td>
+        <img src="@Model.thumbnail" class="img-responsive" alt="Image Error" width="150" height="150">
+    </td>
+    <td>
+        @{
+            if (Model.valid)
+            {
+                @Html.Raw("Còn kinh doanh")
+            }
+            else
+            {
+                @Html.Raw("Ngừng kinh doanh")
+            }
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Thêm vào giỏ", "Orders", "ShoppingCart", new { id = Model.id, quantity = 1 }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Chi tiết", "Details", new { id = Model.id }, new { @class = "btn btn-info" })
+    </td>
+</tr>

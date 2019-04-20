@@ -1,0 +1,87 @@
+﻿@model IEnumerable<OnlineShoppingProject.Areas.AdministratorCP.Models.SPThongKe>
+
+@{
+    ViewBag.Title = "ThongKeSanPham";
+}
+
+<h2>Thống kê sản phẩm</h2>
+
+
+<!--vùng hiển thị biểu đồ thống kê-->
+<table class="columns">
+    <tr>
+        <td><div id="hienthibieudoPIE" style="border:1px solid #ccc"></div></td>
+        <td><div id="hienthibieudoLINE" style="border:1px solid #ccc"></div></td>
+    </tr>
+</table>
+
+@section scripts{
+    <!--Thư viện google chart dùng để vẽ biểu đồ-->
+    
+    <script type="text/javascript" src="~/Scripts/loader.js"></script>
+        <script>
+            // Khi trang load xong resources
+            $(document).ready(function () {
+                // load google charts: khởi tạo google chart
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawThongKeSanPham);
+            });
+
+            // Hiển thị bảng dữ liệu và vẽ biểu đồ bằng Ajax
+            function drawThongKeSanPham() {
+                // Hiển thị biểu đồ
+                // Phần nạp dữ liệu hiển thị
+                var tenSanPhams = [];
+                var soLuongSanPhams = [];
+                var giaSanPhams = [];
+
+                // chuyển dữ liệu Model sang dạng Json Array
+                var result = @Html.Raw(Json.Encode(Model));
+
+                $.each(result, function (i, item) {
+                    tenSanPhams.push([item.name].toString());
+                    soLuongSanPhams.push([item.quantity]);
+                    giaSanPhams.push([item.price]);
+                });
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Sản phẩm');
+                data.addColumn('number', 'Số lượng');
+                data.addRows(tenSanPhams.length);
+
+                for (var i = 0; i < tenSanPhams.length; i++) {
+                    data.setCell(i, 0, tenSanPhams[i]);
+                    data.setCell(i, 1, parseInt(soLuongSanPhams[i]));
+                }
+
+                // cấu hình cơ bản có biểu đồ
+                var options = {
+                    title: "Thống kê tin sản phẩm",
+                    is3D: true,
+                    width: 550,
+                    height: 400,
+                };
+
+                // vẽ biểu đồ thống kê theo số lượng
+                var chart = new google.visualization.PieChart(document.getElementById('hienthibieudoPIE'));
+                chart.draw(data, options);
+
+                /////////////////////////////////////
+                // Vẽ biểu đồ dạng column cho biểu đồ
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Sản phẩm');
+                data.addColumn('number', 'Số lượng');
+                data.addRows(tenSanPhams.length);
+
+                for (var i = 0; i < tenSanPhams.length; i++) {
+                    data.setCell(i, 0, tenSanPhams[i]);
+                    data.setCell(i, 1, parseInt(soLuongSanPhams[i]));
+                }
+
+                // vẽ biểu đồ thống kê theo đơn giá
+                var chart = new google.visualization.LineChart(document.getElementById('hienthibieudoLINE'));
+                chart.draw(data, options);
+
+            };
+        </script>
+    }

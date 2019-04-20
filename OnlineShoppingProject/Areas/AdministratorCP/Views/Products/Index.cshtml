@@ -1,0 +1,81 @@
+﻿@model IEnumerable<OnlineShoppingProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh mục</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.category.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbnail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valid)
+        </th>
+        <th>
+            Thao tác
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @string.Format("{0:N0}", item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                <img src="@item.thumbnail" class="img-responsive" alt="Image Error" width="150" height="150">
+            </td>
+            <td>
+                @{
+                    if (item.valid)
+                    {
+                        @Html.Raw("Còn kinh doanh")
+                    }
+                    else
+                    {
+                        @Html.Raw("Ngừng kinh doanh")
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Xóa sản phẩm", "Delete", new { id = item.id }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,83 @@
+﻿@model OnlineShoppingProject.Models.Product
+
+@{
+    ViewBag.Title = " Home Details";
+}
+
+<h2>Chi tiết</h2>
+
+<div>
+    <h4>Sản phẩm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.category.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.category.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @string.Format("{0:N0}", Model.price) VNĐ
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            <label class="control-label">Hình ảnh</label>
+        </dt>
+
+        <dd>
+            <img src="@Model.thumbnail" class="img-responsive" alt="Image Error" width="250" height="250">
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valid)
+        </dt>
+
+        <dd>
+            @{
+                if (Model.valid)
+                {
+                    @Html.Raw("Còn kinh doanh")
+                }
+                else
+                {
+                    @Html.Raw("Ngừng kinh doanh")
+                }
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Quay về", "Index") |
+    @Html.ActionLink("Thêm vào giỏ", "ValueChanged", "ShoppingCart", new { id = Model.id, quantity = 1 }, null)
+</p>

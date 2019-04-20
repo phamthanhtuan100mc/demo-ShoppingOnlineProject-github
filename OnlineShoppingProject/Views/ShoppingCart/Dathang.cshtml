@@ -1,0 +1,54 @@
+﻿@model OnlineShoppingProject.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Xác nhận đặt hàng";
+}
+
+<div>
+    <br />
+    <h4>Xác nhận thông tin mua hàng</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </dt>
+
+        <dd>
+            @ViewBag.HoTen            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @ViewBag.Email
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+
+        <dd>
+            @ViewBag.DiaChi
+        </dd>
+
+        <dt>
+            Số điện thoại
+        </dt>
+
+        <dd>
+            @ViewBag.SDT
+        </dd>
+
+    </dl>
+
+</div>
+
+<p>
+    @Html.ActionLink("Quay về", "Orders") |
+    @*@Html.ActionLink("Sửa thông tin", "ValueChanged", "ShoppingCart", new { id = Model.id, quantity = 1 }, null)*@
+    @Html.ActionLink("Sửa thông tin giao hàng", "EditUser") |
+    @Html.ActionLink("Đặt hàng", "PlaceOrder")
+</p>

@@ -1,0 +1,73 @@
+﻿@using PagedList;
+@model IEnumerable<OnlineShoppingProject.Models.Product>
+
+@{
+    ViewBag.Title = " Home Index";
+}
+
+
+<!--PHÂN TRANG-->
+<div style="text-align:center">
+    <br />
+    @{
+        if (((IPagedList)Model).PageNumber == 1)
+        {
+            @Html.ActionLink("Trang trước", "IndexCate", new { Page_No = ((IPagedList)Model).PageNumber, cateId = ViewBag.CateID })
+        }
+        else
+        {
+            @Html.ActionLink("Trang trước", "IndexCate", new { Page_No = ((IPagedList)Model).PageNumber - 1, cateId = ViewBag.CateID })
+        }
+
+    }
+
+    Trang @(((IPagedList)Model).PageCount < ((IPagedList)Model).PageNumber ? 0 : ((IPagedList)Model).PageNumber) trong tổng số @(((IPagedList)Model).PageCount) (trang) |
+    
+    @{
+        if ((((IPagedList)Model).PageNumber + 1) > (((IPagedList)Model).PageCount))
+        {
+            @Html.ActionLink("Trang sau", "IndexCate", new { Page_No = ((IPagedList)Model).PageNumber, cateId = ViewBag.CateID })
+        }
+        else
+        {
+            @Html.ActionLink("Trang sau", "IndexCate", new { Page_No = ((IPagedList)Model).PageNumber + 1, cateId = ViewBag.CateID })
+        }
+    }
+    <br />
+    <br />
+</div>
+<!--END OF PHÂN TRANG-->
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.category.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbnail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valid)
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        ViewBag.pageNumber = ((IPagedList)Model).PageNumber;
+        @Html.Partial("ProductItem", item)
+    }
+
+</table>

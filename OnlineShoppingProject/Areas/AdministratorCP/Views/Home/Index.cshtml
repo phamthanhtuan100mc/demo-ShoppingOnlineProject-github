@@ -1,0 +1,109 @@
+﻿@using PagedList;
+@model IEnumerable<OnlineShoppingProject.Models.Product>
+
+@{
+    ViewBag.Title = " Home Index";
+}
+
+<h2>Danh mục</h2>
+
+@using (Html.BeginForm())
+{
+    <br />
+    <p>
+        Nhập từ khóa tìm kiếm: @Html.TextBox("SearchString") <input type="submit" value="Tìm kiếm" />
+    </p>
+}
+
+<!--PHÂN TRANG-->
+<div style="text-align:center">
+    <br />
+    @{
+        if (((IPagedList)Model).PageNumber == 1)
+        {
+            @Html.ActionLink("Trang trước", "Index", new { Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang trước", "Index", new { Page_No = ((IPagedList)Model).PageNumber - 1 })
+        }
+
+    }
+
+    Trang @(((IPagedList)Model).PageCount < ((IPagedList)Model).PageNumber ? 0 : ((IPagedList)Model).PageNumber) trong tổng số @(((IPagedList)Model).PageCount) (trang) |
+    @{
+        if ((((IPagedList)Model).PageNumber + 1) >= (((IPagedList)Model).PageCount))
+        {
+            @Html.ActionLink("Trang sau", "Index", new { Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang sau", "Index", new { Page_No = ((IPagedList)Model).PageNumber + 1 })
+        }
+    }
+    <br />
+    <br />
+</div>
+<!--END OF PHÂN TRANG-->
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.category.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbnail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valid)
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.Partial("ProductItem", item)
+    }
+
+</table>
+
+<div style="text-align:center">
+    <hr />
+    @{
+        if (((IPagedList)Model).PageNumber == 1)
+        {
+            @Html.ActionLink("Trang trước", "Index", new { Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang trước", "Index", new { Page_No = ((IPagedList)Model).PageNumber - 1 })
+        }
+
+    }
+
+    Trang @(((IPagedList)Model).PageCount < ((IPagedList)Model).PageNumber ? 0 : ((IPagedList)Model).PageNumber) trong tổng số @(((IPagedList)Model).PageCount) (trang) |
+
+
+    @{
+        if ((((IPagedList)Model).PageNumber + 1) >= (((IPagedList)Model).PageCount))
+        {
+            @Html.ActionLink("Trang sau", "Index", new { Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang sau", "Index", new { Page_No = ((IPagedList)Model).PageNumber + 1 })
+        }
+    }
+</div>

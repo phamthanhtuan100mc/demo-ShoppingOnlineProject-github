@@ -1,0 +1,8 @@
+﻿@model IEnumerable<OnlineShoppingProject.Models.Category>
+
+@{ 
+    foreach(var item in Model)
+    {
+        <li>@Html.ActionLink(item.name, "Index", "Home", new { SearchString = item.name})</li>
+    }
+}

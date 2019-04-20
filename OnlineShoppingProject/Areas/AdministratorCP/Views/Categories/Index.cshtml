@@ -1,0 +1,49 @@
+﻿@model IEnumerable<OnlineShoppingProject.Models.Category>
+
+@{
+    ViewBag.Title = "Danh mục";
+}
+
+<h2>Danh mục</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valid)
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @{
+                    if (item.valid)
+                    {
+                        @Html.Raw("Còn kinh doanh")
+                    }
+                    else
+                    {
+                        @Html.Raw("Ngừng kinh doanh")
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.id }) |
+                @Html.ActionLink("Xóa danh mục", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

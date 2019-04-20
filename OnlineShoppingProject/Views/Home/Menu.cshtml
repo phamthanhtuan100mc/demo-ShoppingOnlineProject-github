@@ -1,0 +1,10 @@
+﻿@model IEnumerable<OnlineShoppingProject.Models.Category>
+
+@{
+    foreach (var item in Model)
+    {
+        //ViewBag.cateid = item.id;
+        <li>@Html.ActionLink(item.name, "IndexCate", "Home", new { cateId = item.id}, null)</li>
+        @*@Html.ActionLink(item.name, "IndexCate", "Home", new { cateId = item.id }, new { @class = "dropdown-item" })*@
+    }
+}

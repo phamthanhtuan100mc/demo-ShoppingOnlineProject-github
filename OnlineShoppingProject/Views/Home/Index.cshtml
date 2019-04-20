@@ -1,0 +1,71 @@
+﻿@using PagedList;
+@model IEnumerable<OnlineShoppingProject.Models.Product>
+
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<!--PHÂN TRANG-->
+<div style="text-align:center">
+    <br />
+    @{
+        if (((IPagedList)Model).PageNumber == 1)
+        {
+            @Html.ActionLink("Trang trước", "Index", new { SearchString = ViewBag.searchStr, Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang trước", "Index", new { SearchString = ViewBag.searchStr, Page_No = ((IPagedList)Model).PageNumber - 1 })
+        }
+
+    }
+
+    Trang @(((IPagedList)Model).PageNumber) trong tổng số @(((IPagedList)Model).PageCount) (trang) |
+
+    @{
+        if ((((IPagedList)Model).PageNumber + 1) > (((IPagedList)Model).PageCount))
+        {
+            @Html.ActionLink("Trang sau", "Index", new { SearchString = ViewBag.searchStr, Page_No = ((IPagedList)Model).PageNumber })
+        }
+        else
+        {
+            @Html.ActionLink("Trang sau", "Index", new { SearchString = ViewBag.searchStr, Page_No = ((IPagedList)Model).PageNumber + 1 })
+        }
+    }
+    <br />
+    <br />
+</div>
+<!--END OF PHÂN TRANG-->
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.category.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thumbnail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valid)
+        </th>
+        <th>Thao tác</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    ViewBag.pageNumber = ((IPagedList)Model).PageNumber;
+    @Html.Partial("ProductItem", item);
+}
+
+</table>
