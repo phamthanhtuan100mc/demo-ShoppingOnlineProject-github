@@ -14,6 +14,7 @@ namespace OnlineShoppingProject.Controllers
 {
     public class HomeController : Controller
     {
+        // comaosdjgehg
         private DbShoppingContext db = new DbShoppingContext();
 
         public int TongSoLuong()
